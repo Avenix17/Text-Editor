@@ -5,7 +5,6 @@ const { InjectManifest } = require('workbox-webpack-plugin');
 
 // TODO: Add and configure workbox plugins for a service worker and manifest file.
 // TODO: Add CSS loaders and babel to webpack.
-
 module.exports = () => {
   return {
     mode: 'development',
@@ -30,6 +29,9 @@ module.exports = () => {
       new WebpackPwaManifest({
         fingerprints: false,
         inject: true,
+        name: 'Text Editor',
+        short_name: 'JATE',
+        description: 'Create code notes with or without internet connection',
         background_color: '#225ca3',
         theme_color: '#225ca3',
         start_url: './',
@@ -52,11 +54,12 @@ module.exports = () => {
         },
         {
           test: /\.m?js$/,
-          exclude: /(node_modules|bower_components)/,
+          exclude: /node_modules/,
           use: {
             loader: 'babel-loader',
             options: {
               presets: ['@babel/preset-env'],
+              plugins: ['@babel/plugin-proposal-object-rest-spread', '@babel/transform-runtime'],
             },
           },
         },
